@@ -1,1 +1,177 @@
 https://github.com/rchavezj/OpenCV_Projects/tree/master/
+
+When working with images in OpenCV (cv2), you can perform various statistical analyses to extract meaningful information. Below is a list of common statistical analyses you can perform on an image:
+
+1. Basic Pixel Statistics
+Mean: Average intensity of pixel values.
+
+Median: Middle value of pixel intensities.
+
+Standard Deviation: Measure of pixel intensity variation.
+
+Variance: Square of the standard deviation.
+
+Min and Max: Minimum and maximum pixel intensity values.
+
+python
+Copy
+import cv2
+import numpy as np
+
+image = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
+
+mean = np.mean(image)
+median = np.median(image)
+std_dev = np.std(image)
+variance = np.var(image)
+min_val = np.min(image)
+max_val = np.max(image)
+
+print(f"Mean: {mean}, Median: {median}, Std Dev: {std_dev}, Variance: {variance}, Min: {min_val}, Max: {max_val}")
+2. Histogram Analysis
+Compute the histogram of pixel intensities to analyze the distribution of pixel values.
+
+python
+Copy
+import cv2
+import matplotlib.pyplot as plt
+
+image = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
+
+histogram = cv2.calcHist([image], [0], None, [256], [0, 256])
+
+plt.plot(histogram)
+plt.title('Histogram of Pixel Intensities')
+plt.xlabel('Pixel Intensity')
+plt.ylabel('Frequency')
+plt.show()
+3. Color Channel Statistics
+Analyze individual color channels (e.g., BGR or HSV) for mean, median, standard deviation, etc.
+
+python
+Copy
+image = cv2.imread('image.jpg')
+
+# Split into BGR channels
+b, g, r = cv2.split(image)
+
+print(f"Blue Channel - Mean: {np.mean(b)}, Std Dev: {np.std(b)}")
+print(f"Green Channel - Mean: {np.mean(g)}, Std Dev: {np.std(g)}")
+print(f"Red Channel - Mean: {np.mean(r)}, Std Dev: {np.std(r)}")
+4. Image Moments
+Compute moments to analyze the shape and distribution of pixel intensities.
+
+python
+Copy
+moments = cv2.moments(image)
+
+print(f"Moments: {moments}")
+5. Contour Analysis
+Analyze contours to compute area, perimeter, centroid, and bounding box.
+
+python
+Copy
+contours, _ = cv2.findContours(image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+for contour in contours:
+    area = cv2.contourArea(contour)
+    perimeter = cv2.arcLength(contour, True)
+    print(f"Area: {area}, Perimeter: {perimeter}")
+6. Edge Detection Statistics
+Analyze edges using Canny or Sobel edge detection and compute statistics.
+
+python
+Copy
+edges = cv2.Canny(image, 100, 200)
+
+edge_pixels = np.count_nonzero(edges)
+print(f"Edge Pixels: {edge_pixels}")
+7. Texture Analysis
+Compute texture features like Haralick features, GLCM (Gray-Level Co-occurrence Matrix), etc.
+
+python
+Copy
+from skimage.feature import graycomatrix, graycoprops
+
+glcm = graycomatrix(image, distances=[1], angles=[0], levels=256, symmetric=True, normed=True)
+contrast = graycoprops(glcm, 'contrast')
+correlation = graycoprops(glcm, 'correlation')
+
+print(f"Contrast: {contrast}, Correlation: {correlation}")
+8. Image Entropy
+Measure the randomness or complexity of pixel intensities.
+
+python
+Copy
+from skimage.measure import shannon_entropy
+
+entropy = shannon_entropy(image)
+print(f"Entropy: {entropy}")
+9. Image Gradient Analysis
+Compute gradients to analyze intensity changes in the image.
+
+python
+Copy
+sobel_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=5)
+sobel_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=5)
+
+gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
+gradient_direction = np.arctan2(sobel_y, sobel_x)
+
+print(f"Gradient Magnitude: {np.mean(gradient_magnitude)}")
+10. Image Blur Analysis
+Measure the blurriness of an image using variance of Laplacian.
+
+python
+Copy
+laplacian_var = cv2.Laplacian(image, cv2.CV_64F).var()
+print(f"Laplacian Variance: {laplacian_var}")
+11. Image Histogram Equalization
+Analyze the effect of histogram equalization on pixel distribution.
+
+python
+Copy
+equalized = cv2.equalizeHist(image)
+cv2.imshow('Equalized Image', equalized)
+cv2.waitKey(0)
+12. Image Segmentation Statistics
+Analyze segmented regions (e.g., using thresholding or clustering).
+
+python
+Copy
+_, binary = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
+
+num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(binary)
+
+for i in range(1, num_labels):  # Skip background (label 0)
+    print(f"Region {i}: Area={stats[i, cv2.CC_STAT_AREA]}, Centroid={centroids[i]}")
+13. Image Quality Metrics
+Compute metrics like PSNR (Peak Signal-to-Noise Ratio) or SSIM (Structural Similarity Index).
+
+python
+Copy
+from skimage.metrics import peak_signal_noise_ratio, structural_similarity
+
+psnr = peak_signal_noise_ratio(image1, image2)
+ssim = structural_similarity(image1, image2, multichannel=True)
+
+print(f"PSNR: {psnr}, SSIM: {ssim}")
+14. Image Correlation
+Compute correlation between two images or channels.
+
+python
+Copy
+correlation = np.corrcoef(image1.flatten(), image2.flatten())[0, 1]
+print(f"Correlation: {correlation}")
+15. Image Skewness and Kurtosis
+Analyze the skewness (asymmetry) and kurtosis (tailedness) of pixel intensity distribution.
+
+python
+Copy
+from scipy.stats import skew, kurtosis
+
+skewness = skew(image.flatten())
+kurt = kurtosis(image.flatten())
+
+print(f"Skewness: {skewness}, Kurtosis: {kurt}")
+These are some of the key statistical analyses you can perform on an image using OpenCV and related libraries. Let me know if you need further details or examples!
