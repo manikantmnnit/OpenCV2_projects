@@ -6,7 +6,7 @@ import numpy as np
 # %%
 file_path=Path.cwd()
 image=cv2.imread(file_path/"OSCC_100x_1.jpg",cv2.IMREAD_GRAYSCALE)
-cv2.imshow("image_1",image_1)
+cv2.imshow("image_1",image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
