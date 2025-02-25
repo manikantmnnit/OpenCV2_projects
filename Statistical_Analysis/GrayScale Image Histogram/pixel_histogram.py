@@ -19,4 +19,3 @@ plt.plot(hist_gray,color='r')
 plt.title("Gray scale image histogram")
 # %%
 cv2.imwrite(path_name/'hist_gray.jpg',hist_gray)
-# %%

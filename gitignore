@@ -2,62 +2,7 @@ https://github.com/rchavezj/OpenCV_Projects/tree/master/
 
 When working with images in OpenCV (cv2), you can perform various statistical analyses to extract meaningful information. Below is a list of common statistical analyses you can perform on an image:
 
-1. Basic Pixel Statistics
-Mean: Average intensity of pixel values.
 
-Median: Middle value of pixel intensities.
-
-Standard Deviation: Measure of pixel intensity variation.
-
-Variance: Square of the standard deviation.
-
-Min and Max: Minimum and maximum pixel intensity values.
-
-python
-Copy
-import cv2
-import numpy as np
-
-image = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
-
-mean = np.mean(image)
-median = np.median(image)
-std_dev = np.std(image)
-variance = np.var(image)
-min_val = np.min(image)
-max_val = np.max(image)
-
-print(f"Mean: {mean}, Median: {median}, Std Dev: {std_dev}, Variance: {variance}, Min: {min_val}, Max: {max_val}")
-2. Histogram Analysis
-Compute the histogram of pixel intensities to analyze the distribution of pixel values.
-
-python
-Copy
-import cv2
-import matplotlib.pyplot as plt
-
-image = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
-
-histogram = cv2.calcHist([image], [0], None, [256], [0, 256])
-
-plt.plot(histogram)
-plt.title('Histogram of Pixel Intensities')
-plt.xlabel('Pixel Intensity')
-plt.ylabel('Frequency')
-plt.show()
-3. Color Channel Statistics
-Analyze individual color channels (e.g., BGR or HSV) for mean, median, standard deviation, etc.
-
-python
-Copy
-image = cv2.imread('image.jpg')
-
-# Split into BGR channels
-b, g, r = cv2.split(image)
-
-print(f"Blue Channel - Mean: {np.mean(b)}, Std Dev: {np.std(b)}")
-print(f"Green Channel - Mean: {np.mean(g)}, Std Dev: {np.std(g)}")
-print(f"Red Channel - Mean: {np.mean(r)}, Std Dev: {np.std(r)}")
 4. Image Moments
 Compute moments to analyze the shape and distribution of pixel intensities.
 
