@@ -3,14 +3,7 @@ https://github.com/rchavezj/OpenCV_Projects/tree/master/
 When working with images in OpenCV (cv2), you can perform various statistical analyses to extract meaningful information. Below is a list of common statistical analyses you can perform on an image:
 
 
-4. Image Moments
-Compute moments to analyze the shape and distribution of pixel intensities.
 
-python
-Copy
-moments = cv2.moments(image)
-
-print(f"Moments: {moments}")
 5. Contour Analysis
 Analyze contours to compute area, perimeter, centroid, and bounding box.
 
